@@ -1,65 +1,163 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <View style={styles.box1}>
-        <View style={styles.box3}></View>
-        <View style={styles.box3}></View>
+
+      <View style={styles.header}>
+        <Text>logo</Text>
+        <View style={styles.menu}></View>
+      </View>
+
+
+
+      <View style={styles.content}>
+
+
+        <View style={styles.card1}>
+          <View style={styles.fotocard1}></View>
+
+          <View style={styles.subcard}>
+            <Text>Titulo</Text>
+            <Text>subtitulo fgdsgf</Text>
+          </View>
+
+        </View>
+
+
+        <View style={styles.card2}>
+          <View style={styles.fotocard2}></View>
+
+          <View style={styles.titulo}>
+
+            <Text>subtitulo fgdsgf</Text>
+          </View>
+
+        </View>
+
+
+
+        <View style={styles.vermais}>
+          <Text>Ver mais..</Text>
+        </View>
+
+
+
+
 
       </View>
-      <Text style={styles.tituloPrincipal}>Titulo Pincipal</Text>
-      <Text  style={styles.subTirtulo}>Subtitulo</Text>
-      <Text>Este é um paragrafo</Text>
-      <Text style={styles.saibaMais}>Saiba mais</Text>
-      <View style={styles.box2}></View>
-      <StatusBar style="auto" />
+
+      <View style={styles.rodape}>
+        <Text>Geovanna</Text>
+      </View>
+
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tituloPrincipal: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    marginVertical: 20
+    backgroundColor: " #3daff1",
+    justifyContent: "center",
+    alignItems: "center"
+
   },
 
-  subTirtulo: {
-    fontSize: '18px',
-    fontWeight: 'bold',
-    marginVertical: 20
+  header: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "rgb(233, 154, 51)",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingHorizontal: 20
   },
 
-  saibaMais : {
-    fontSize: '14px',
-    color:'#0000FF',
+
+  menu: {
+    width: 40,
+    height: 40,
+    backgroundColor: "rgb(13, 16, 18)"
   },
 
-  box1 : {
-    display: 'flex',
-    width: '100%',
+
+  content: {
+    flex: 7,
+    width: "100%",
+    backgroundColor: "rgb(89, 196, 229)",
+
+  },
+
+  card1: {
+
+    width: "80%",
+    height: 120,
+    backgroundColor: "rgb(207, 211, 212)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    margin: 40,
+    borderRadius: 20
+
+  },
+
+  subcard: {
+    flexDirection: "colum"
+  },
+
+  fotocard1: {
+    width: 80,
     height: 80,
-    backgroundColor: '#456789',
-    alignItems: 'space-between',
+    backgroundColor: "rgb(13, 16, 18)",
+    margin: 10
   },
-  box2 : {
-    width: '100%',
+
+  card2: {
+
+    width: "80%",
+    height: 120,
+    backgroundColor: "rgb(207, 211, 212)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    margin: 40,
+    borderRadius: 20
+
+  },
+
+  titulo: {
+    flexDirection: "colum"
+  },
+
+  fotocard2: {
+    width: 80,
     height: 80,
-    backgroundColor: '#452781',
+    backgroundColor: "rgb(13, 16, 18)",
+    margin: 10
   },
 
-  box3 : {
-    width: 50,
-    height: 50,
-    backgroundColor: '#452781',
+
+  vermais:{
+    backgroundColor:"#rgb(233, 154, 51)",
+    width:90,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    marginLeft: "auto",
+    marginRight:"auto"
+  
+
   },
 
-}); 
+
+  rodape: {
+    flex: 2,
+    width: "100%",
+    backgroundColor: "rgb(233, 154, 51)",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+})
