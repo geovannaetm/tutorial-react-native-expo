@@ -1,17 +1,21 @@
-import {View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import {Image} from 'expo-image'
 
 
-function Card1() {
+function Card1({title, desc, img}) {
   return (
     <View style={styles.card1}>
-              <View style={styles.fotocard1}></View>
-    
-              <View style={styles.subcard}>
-                <Text>Titulo</Text>
-                <Text>subtitulo fgdsgf</Text>
-              </View>
-    
-            </View>
+      <Image
+      style={styles.fotocard1}
+      source={img}
+      />
+
+      <View style={styles.subcard}>
+        <Text>{title}</Text>
+        <Text>{desc}</Text>
+      </View>
+
+    </View>
   )
 }
 
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
 
- 
+
 })
 
 export default Card1
