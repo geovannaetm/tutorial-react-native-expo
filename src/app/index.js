@@ -1,13 +1,21 @@
 import { View, Text, StyleSheet } from 'react-native'
-import Header from './src/components/Header'
-import Card1 from './src/components/Card1'
-import Footer from './src/components/Footer'
+import Header from '../components/Header'
+import Card1 from '../components/Card1'
+import Footer from '../components/Footer'
+import { Link } from 'expo-router'
 
-export default function App() {
+export default function Home() {
   return (
     <View style={styles.container}>
 
       <Header />
+
+      <View style={styles.buttons}>
+       <Link href="contact"><Text style={styles.contact}>Contato</Text></Link> 
+
+        <Link href="about"><Text style={styles.about}>Sobre</Text></Link>
+
+      </View>
 
 
 
@@ -57,6 +65,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
 
+  },
+
+
+  buttons:{
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    backgroundColor: "rgb(90, 120, 138)",
+    paddingVertical: 10
+  },
+
+  contact:{
+    fontSize: 20,
+    color: "#123041",
+    fontWeight: "bold",
+   
+  },
+
+  about:{
+    fontSize: 20,
+    color: "#123041",
+    fontWeight: "bold",
+   
   },
 
 
