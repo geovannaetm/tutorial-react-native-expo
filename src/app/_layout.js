@@ -39,6 +39,16 @@ export default function Layout() {
                 }}
             />
 
+
+             <Tabs.Screen
+                name="edituser"
+                options={{
+                    title: "Editar",
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({ color }) => <MaterialCommunityIcons name="contacts" size={20} color={color} />
+                }}
+            />
+
             <Tabs.Screen
                 name="profile"
                 options={{

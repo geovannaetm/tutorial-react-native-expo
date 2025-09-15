@@ -1,10 +1,11 @@
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useRouter , useGlobalSearchParms} from 'expo-router'
 import {useState} from "react";
 
-export default function Signup() {
+export default function EditUser() {
 
     const router = useRouter()
+    const {id, name: eName, email: eEmail, avatar: eAvatar} = useGlobalSearchParms()
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -34,13 +35,16 @@ export default function Signup() {
             console.log("Erro ao cadastrar")
         }
     }
+
+
+   
     
     return (
         <View style={styles.container}>
 
            
 
-            <Text style={styles.title}>Cadastre-se</Text>
+            <Text style={styles.title}>Editar Perfil</Text>
              <View style={{width:'80%'}}>
 
             <Text style={styles.label}>Nome:</Text>
