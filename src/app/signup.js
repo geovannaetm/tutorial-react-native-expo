@@ -89,24 +89,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    input :{
-        padding:10,
-        borderWidth:1,
-        borderColor:'#000',
-        width: 200,
-        margin:10,
-        borderRadius:5,
-        backgroundColor:'#fff'
-
-    },
     title:{
-        fontSize:20,
-        fontWeight:'bold',
-        marginTop:10,
-        
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20
     },
     label:{
-        marginTop:10,
+        marginTop: 10
     },
-
+    input: {
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 5,
+        backgroundColor: '#fff',
+    }
 })

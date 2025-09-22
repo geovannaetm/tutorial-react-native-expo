@@ -3,8 +3,13 @@ import {Image} from 'expo-image'
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
+import { useUserStore} from '../stores/useUserStore';
 
-function CardUser({id, name, email, avatar, users, setUser}) {
+function CardUser({id, name, email, avatar}) {
+
+
+  const router = useRouter()
+  const {users, setUsers} = useUserStore()
 
   const handleDelete = async () => {
     const response = await fetch(`http://localhost:3333/profile/${id}`, {
@@ -14,7 +19,7 @@ function CardUser({id, name, email, avatar, users, setUser}) {
     if(response.ok){
       alert("Usuário deletado com sucesso")
       const updatedUsers = users.filter(user => user.id !== id);//cria um novo array sem o id que foi deletado
-      setUser(updatedUsers);
+      setUsers(updatedUsers);
     } else {
       alert("Erro ao deletar usuário")
     }
@@ -24,7 +29,7 @@ function CardUser({id, name, email, avatar, users, setUser}) {
    const handleEdit = () => {
        console.log("Editar usuário")
        router.push({
-        pathname: '/editaruser',
+        pathname: '/edituser',
         params: {id, name, email, avatar}
       })
     }

@@ -1,19 +1,23 @@
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native'
-import { useRouter , useGlobalSearchParms} from 'expo-router'
+import { useRouter , useGlobalSearchParams} from 'expo-router'
 import {useState} from "react";
+import { useUserStore } from '../stores/useUserStore';
 
 export default function EditUser() {
 
+    const {users, setUsers} = useUserStore()
+    
     const router = useRouter()
-    const {id, name: eName, email: eEmail, avatar: eAvatar} = useGlobalSearchParms()
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const {id, name: eName, email: eEmail, avatar: eAvatar} = useGlobalSearchParams()
+
+    const [name, setName] = useState(eName);
+    const [email, setEmail] = useState(eEmail);
     const [pass, setPass] = useState("");
-    const [avatar, setAvatar] = useState("");
+    const [avatar, setAvatar] = useState(eAvatar);
 
     
-    const handleSignup = async () => {
+    const handleEdit = async () => {
 
         const profile={
             name,
@@ -22,17 +26,27 @@ export default function EditUser() {
             avatar
         }
 
-        const response = await fetch("http://localhost:3333/profile",{ 
-            method: "POST",
+        const response = await fetch(`http://localhost:3333/profile/${id}`,{ 
+            method: "PUT",
+            
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(profile),
-            headers: {"Content-Type": "application/json"}
         })
 
         if(response.ok){
-            console.log("Cadastrado com sucesso")
-            router.navigate('/login')
+            console.log("Perfil editado com sucesso")
+            const updatedUsers = users.map(user =>{
+                if(user.id === id){
+                    return {id, ...profile}
+                }
+                return user
+            })
+            setUsers(updatedUsers)
+            router.navigate('/contact')
         }else{
-            console.log("Erro ao cadastrar")
+            console.log("Erro ao editar ")
         }
     }
 
@@ -77,8 +91,8 @@ export default function EditUser() {
             <View style={{marginTop:20}}>
             
             <Button
-                title='Cadastrar'
-                onPress={handleSignup}
+                title='Editar'
+                onPress={handleEdit}
             />
             
             </View >
@@ -93,24 +107,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    input :{
-        padding:10,
-        borderWidth:1,
-        borderColor:'#000',
-        width: 200,
-        margin:10,
-        borderRadius:5,
-        backgroundColor:'#fff'
-
-    },
     title:{
-        fontSize:20,
-        fontWeight:'bold',
-        marginTop:10,
-        
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20
     },
     label:{
-        marginTop:10,
+        marginTop: 10
     },
-
+    input: {
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 5,
+        backgroundColor: '#fff',
+    }
 })
