@@ -35,6 +35,7 @@ function CardUser({id, name, email, avatar}) {
     }
 
   return (
+    <View style={styles.container}>
     <View style={styles.card}>
       <Image 
         style={styles.image}
@@ -54,12 +55,20 @@ function CardUser({id, name, email, avatar}) {
         </Pressable>
       </View>
     </View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+
+  container: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
   card: {
-    width: '90%',
+    width: '80%',
     padding: 10,
     flexDirection: 'row',
     gap: 15,
