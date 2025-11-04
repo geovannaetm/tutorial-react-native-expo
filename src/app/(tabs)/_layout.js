@@ -4,7 +4,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-export default function Layout() {
+export default function RootLayout() {
     return (
         <Tabs screenOptions={{
             tabBarActiveTintColor: "#123041",

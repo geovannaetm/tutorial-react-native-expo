@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
-import Header from '../components/Header'
-import Card1 from '../components/Card1'
-import Footer from '../components/Footer'
+import Header from '../../components/Header'
+import Card1 from '../../components/Card1'
+import Footer from '../../components/Footer'
 import { Link } from 'expo-router'
 
 export default function Home() {
