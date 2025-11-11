@@ -2,10 +2,12 @@ import { View, Text, Button, StyleSheet, TextInput } from 'react-native'
 import { useRouter , useGlobalSearchParams} from 'expo-router'
 import {useState} from "react";
 import { useUserStore } from '../stores/useUserStore';
+import { useAuthStore } from '../stores/useAuthStore';
 
 export default function EditUser() {
 
     const {users, setUsers} = useUserStore()
+    const { token } = useAuthStore()
     
     const router = useRouter()
 
@@ -30,7 +32,8 @@ export default function EditUser() {
             method: "PUT",
             
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(profile),
         })
