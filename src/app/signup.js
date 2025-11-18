@@ -1,84 +1,79 @@
 import { View, Text, Button, StyleSheet, TextInput } from 'react-native'
 import { useRouter } from 'expo-router'
-import {useState} from "react";
+import { useState } from 'react'
 
 export default function Signup() {
 
     const router = useRouter()
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
-    const [avatar, setAvatar] = useState("");
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [pass, setPass] = useState("")
+    const [avatar, setAvatar] = useState("")
 
-    
     const handleSignup = async () => {
 
-        const profile={
+        const profile = {
             name,
             email,
             pass,
             avatar
         }
 
-        const response = await fetch("http://localhost:3333/profile",{ 
+        const response = await fetch("http://localhost:3333/profile", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(profile),
-            headers: {"Content-Type": "application/json"}
         })
 
         if(response.ok){
             console.log("Cadastrado com sucesso")
             router.navigate('/login')
-        }else{
+        } else {
             console.log("Erro ao cadastrar")
         }
     }
-    
+
     return (
         <View style={styles.container}>
 
-           
+        <Text style={styles.title}>Cadastre-se</Text>
 
-            <Text style={styles.title}>Cadastre-se</Text>
-             <View style={{width:'80%'}}>
-
+        <View style={{ width: '80%' }}>
             <Text style={styles.label}>Nome:</Text>
             <TextInput 
-             style={styles.input}
-             value={name}
-             onChangeText={setName}
+                style={styles.input}
+                value={name}
+                onChangeText={setName}
             />
-            <Text  style={styles.label}>Email:</Text>
+            <Text style={styles.label}>Email:</Text>
             <TextInput 
-             style={styles.input}
-             value={email}
-             onChangeText={setEmail}
+                style={styles.input}
+                value={email}
+                onChangeText={setEmail}
             />
-
-             <Text style={styles.label}>Senha:</Text>
+            <Text style={styles.label}>Senha:</Text>
             <TextInput 
-             style={styles.input}
-             value={pass}
-             onChangeText={setPass}
+                style={styles.input}
+                value={pass}
+                onChangeText={setPass}
+                secureTextEntry
             />
-             <Text style={styles.label}>Avatar:</Text>
+            <Text style={styles.label}>Avatar:</Text>
             <TextInput 
-             style={styles.input}
-             value={avatar}
-             onChangeText={setAvatar}
+                style={styles.input}
+                value={avatar}
+                onChangeText={setAvatar}
             />
+        </View>
+            <View style={{ marginTop: 20 }}>
+                <Button 
+                    title='Cadastrar'
+                    onPress={handleSignup}
+                />
             </View>
-
-            <View style={{marginTop:20}}>
-            
-            <Button
-                title='Cadastrar'
-                onPress={handleSignup}
-            />
-            
-            </View >
-          
         </View>
     )
 }

@@ -4,27 +4,30 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
 import { useUserStore} from '../stores/useUserStore';
+import { useAuthStore } from '../stores/useAuthStore';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import {api} from '../api/api';
 
 function CardUser({id, name, email, avatar}) {
 
 
   const router = useRouter()
   const {users, setUsers} = useUserStore()
+  const { logout } = useAuthStore()
 
   const handleDelete = async () => {
-    const response = await fetch(`http://localhost:3333/profile/${id}`, {
-      method: 'DELETE'
-    });
-
-    if(response.ok){
-      alert("Usuário deletado com sucesso")
-      const updatedUsers = users.filter(user => user.id !== id);//cria um novo array sem o id que foi deletado
-      setUsers(updatedUsers);
+    const response = await api.delete(`/profile/${id}`)
+    if(response.status === 200){
+        console.log("Deletado com sucesso")
+        const updatedUsers = users.filter(user => user.id !== id) 
+        setUsers(updatedUsers) 
+        router.replace('/login')
+        logout()
+        await AsyncStorage.removeItem('userLogged')
     } else {
-      alert("Erro ao deletar usuário")
+        console.log("Erro ao deletar")
     }
   }
-
 
    const handleEdit = () => {
        console.log("Editar usuário")

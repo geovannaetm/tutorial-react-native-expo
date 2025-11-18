@@ -1,105 +1,75 @@
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native'
-import { useRouter , useGlobalSearchParams} from 'expo-router'
-import {useState} from "react";
-import { useUserStore } from '../stores/useUserStore';
-import { useAuthStore } from '../stores/useAuthStore';
+import { View, Text, Button, StyleSheet, TextInput, Alert} from 'react-native'
+import { useRouter, useGlobalSearchParams } from 'expo-router'
+import { useState  } from 'react'
+import { useUserStore } from '../stores/useUserStore'
+import { api } from '../api/api'
 
 export default function EditUser() {
 
     const {users, setUsers} = useUserStore()
-    const { token } = useAuthStore()
-    
-    const router = useRouter()
 
+    const router = useRouter()
     const {id, name: eName, email: eEmail, avatar: eAvatar} = useGlobalSearchParams()
 
-    const [name, setName] = useState(eName);
-    const [email, setEmail] = useState(eEmail);
-    const [pass, setPass] = useState("");
-    const [avatar, setAvatar] = useState(eAvatar);
+    const [name, setName] = useState(eName)
+    const [email, setEmail] = useState(eEmail)
+    const [avatar, setAvatar] = useState(eAvatar)
 
-    
     const handleEdit = async () => {
-
-        const profile={
+        const profile = {
             name,
             email,
-            pass,
             avatar
         }
-
-        const response = await fetch(`http://localhost:3333/profile/${id}`,{ 
-            method: "PUT",
-            
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify(profile),
-        })
-
-        if(response.ok){
-            console.log("Perfil editado com sucesso")
-            const updatedUsers = users.map(user =>{
-                if(user.id === id){
-                    return {id, ...profile}
-                }
-                return user
-            })
-            setUsers(updatedUsers)
-            router.navigate('/contact')
-        }else{
-            console.log("Erro ao editar ")
-        }
+            const response = await api.put(`/profile/${id}`, profile)
+            if(response.status === 200){
+                console.log("Perfil editado com sucesso!")
+                //atualizar lista de usuários na store
+                const updatedUsers = users.map(user => {
+                    if(user.id === id){
+                        return {id, ...profile}
+                    }
+                    return user
+                })
+                setUsers(updatedUsers)
+                router.navigate('/contact')
+            } else {
+                console.log("Erro ao Editar: ", response?.data?.message || "Erro desconhecido")
+                Alert.alert("Erro", response?.data?.message || "Não foi possível editar o perfil.")
+            }
     }
 
-
-   
-    
     return (
         <View style={styles.container}>
 
-           
+        <Text style={styles.title}>Editar Perfil</Text>
 
-            <Text style={styles.title}>Editar Perfil</Text>
-             <View style={{width:'80%'}}>
-
+        <View style={{ width: '80%' }}>
             <Text style={styles.label}>Nome:</Text>
             <TextInput 
-             style={styles.input}
-             value={name}
-             onChangeText={setName}
+                style={styles.input}
+                value={name}
+                onChangeText={setName}
             />
-            <Text  style={styles.label}>Email:</Text>
+            <Text style={styles.label}>Email:</Text>
             <TextInput 
-             style={styles.input}
-             value={email}
-             onChangeText={setEmail}
+                style={styles.input}
+                value={email}
+                onChangeText={setEmail}
             />
-
-             <Text style={styles.label}>Senha:</Text>
+            <Text style={styles.label}>Avatar:</Text>
             <TextInput 
-             style={styles.input}
-             value={pass}
-             onChangeText={setPass}
+                style={styles.input}
+                value={avatar}
+                onChangeText={setAvatar}
             />
-             <Text style={styles.label}>Avatar:</Text>
-            <TextInput 
-             style={styles.input}
-             value={avatar}
-             onChangeText={setAvatar}
-            />
+        </View>
+            <View style={{ marginTop: 20 }}>
+                <Button 
+                    title='Editar'
+                    onPress={handleEdit}
+                />
             </View>
-
-            <View style={{marginTop:20}}>
-            
-            <Button
-                title='Editar'
-                onPress={handleEdit}
-            />
-            
-            </View >
-          
         </View>
     )
 }
